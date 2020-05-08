@@ -1,0 +1,16 @@
+@import url(https://fonts.googleapis.com/css?family=Titillium+Web);
+body {
+    margin: 0;
+    font-family: 'Titillium Web', sans-serif;
+    min-height: 100vh;
+    /* background: linear-gradient(110deg, #1d4350, #a43931); */
+    background:#f2f3f5;
+    /* color: #fff; */
+}
+#root{
+    width:100%;
+    max-width: 375px;
+    margin:0 auto;
+    background:#fff;
+    padding: 20px 0px;
+}
