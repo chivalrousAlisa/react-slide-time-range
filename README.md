@@ -46,10 +46,10 @@ $ yarn add react-slide-time-range
     render(){
       return (
         <div>
-      <SlideTimeRange
-        startTime="07:10"
-        endTime="8:20"
-      />
+          <SlideTimeRange
+            startTime="07:10"
+            endTime="8:20"
+          />
         </div>
       );
     }
