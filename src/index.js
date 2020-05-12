@@ -17,7 +17,7 @@ class SlideTimeRange extends React.Component {
       startPoint:0,
       endPoint:0
     };
-    this.dataOptions = this.props.dataOptions;
+    this.dataOptions = this.props.timeOptions;
     // startPoint,endPoint 百分比值的数值
     if(this.props.startTime){
       this.state.startPoint = getPrecentValByTime(this.dataOptions,this.props.startTime);
@@ -25,6 +25,8 @@ class SlideTimeRange extends React.Component {
     if(this.props.endTime){
       this.state.endPoint = getPrecentValByTime(this.dataOptions,this.props.endTime);
     }
+    this.containerWidth = window.innerWidth;
+    this.extralW = 40;
   }
 
   touchstart(event) {
@@ -33,43 +35,42 @@ class SlideTimeRange extends React.Component {
       const targetDom = targetTouches[0];
       if (targetDom){
         const clientX = targetDom.clientX;
-        console.log("开始拖动clientX", clientX);
+        // console.log("开始拖动clientX", clientX);
       }
     }
   }
 
   touchmove(slideType, event) {
     const newState = {...{}, ...this.state};   
-    const extralW = 20;
-    const minW = extralW;
-    const maxW = window.innerWidth - minW;
+    const minW = this.extralW;
+    const maxW = this.containerWidth - minW;
     const targetTouches = event.targetTouches;
     if (targetTouches.length >= 1) {
       const targetDom = targetTouches[0];
       if (targetDom) {
         let needSet = false;
         const clientX = targetDom.clientX;
-        console.log("拖动中clientX", clientX);
+        // console.log("拖动中clientX", clientX);
         if (slideType === "ssp"){
           // 拖动的是开始时间时，往右拖不能大于 结束时间的client
           // 允许拖动的 clientX 的范围:minW-maxW
           // 拖动的是结束时间，往左拖不能小于 开始时间的client
-          const endClientNum = getClientValByPrecent(newState.endPoint);
+          const endClientNum = getClientValByPrecent(newState.endPoint, this.extralW);
           if (clientX >= minW && clientX <= maxW && clientX <= endClientNum) {
-            console.log("有效的拖动");
+            // console.log("有效的拖动");
             needSet = true;
-            newState.startPoint = getPrecentValByClient(clientX);
+            newState.startPoint = getPrecentValByClient(clientX, this.extralW);
             newState.startTime = getDisplayTimeByPrecent(newState.startPoint, this.dataOptions);
             newState.endTime = getDisplayTimeByPrecent(newState.endPoint, this.dataOptions);
           }
         } else {
           // 允许拖动的 clientX 的范围:minW-maxW
           // 拖动的是结束时间，往左拖不能小于 开始时间的client
-          const startClientNum = getClientValByPrecent(newState.startPoint);
+          const startClientNum = getClientValByPrecent(newState.startPoint, this.extralW);
           if (clientX >= minW && clientX <= maxW && clientX >= startClientNum) {
-            console.log("有效的拖动");
+            // console.log("有效的拖动");
             needSet = true;
-            newState.endPoint = getPrecentValByClient(clientX);
+            newState.endPoint = getPrecentValByClient(clientX, this.extralW);
             newState.startTime = getDisplayTimeByPrecent(newState.startPoint, this.dataOptions);
             newState.endTime = getDisplayTimeByPrecent(newState.endPoint, this.dataOptions);
           }
@@ -84,30 +85,29 @@ class SlideTimeRange extends React.Component {
 
   touchend(event) {
     const targetDom = event.targetTouches;
-    console.log("拖动结束");
+    // console.log("拖动结束");
   }
 
   touchcancel(event) {
     const targetTouches = event.targetTouches;
-    console.log("拖动取消targetDom");
+    // console.log("拖动取消targetDom");
     if (targetTouches.length >= 1) {
       const targetDom = targetTouches[0];
       if (targetDom) {
-        console.log("拖动取消targetDom", targetDom);
+        // console.log("拖动取消targetDom", targetDom);
         const clientX = targetDom.clientX;
-        console.log("拖动取消clientX", clientX);
+        // console.log("拖动取消clientX", clientX);
       }
     }
   }
   
   onTimeSliderClick(event) {
-    console.log("event.clientX", event.clientX);
+    // console.log("event.clientX", event.clientX);
     const newState = {...{}, ...this.state};   
     const { startPoint, endPoint} = newState;
-    const precentPointVal = getPrecentValByClient(event.clientX); // 点击位置的点，对应的百分比值
-    const numStartPointer = getClientValByPrecent(startPoint);// 橙色条的起点clientX
-    const numEndPointer = getClientValByPrecent(endPoint);
-    // console.log(numEndPointer);
+    const precentPointVal = getPrecentValByClient(event.clientX, this.extralW); // 点击位置的点，对应的百分比值
+    const numStartPointer = getClientValByPrecent(startPoint, this.extralW);// 橙色条的起点clientX
+    const numEndPointer = getClientValByPrecent(endPoint, this.extralW);
     // 判断 点击点 是在橙色浮层条的左边 还是 右边
     if (event.clientX < numStartPointer) {
       // 在左边，移动startPoint--
@@ -134,11 +134,9 @@ class SlideTimeRange extends React.Component {
 
   render() {
     const stateVo = this.state;
-    const extralW = 20;
-    const arWidth = 100 / this.dataOptions.length;
-    const sWidth = (window.innerWidth - extralW * 2) / (this.dataOptions.length - 1);
+    const sWidth = (this.containerWidth - this.extralW * 2) / (this.dataOptions.length - 1);
     return (
-    <div className="houjiegd-drag-time-filed" style={{ paddingLeft: `${extralW}px`, paddingRight: `${extralW}px` }}>
+    <div className="houjiegd-drag-time-filed" style={{ paddingLeft: `${this.extralW}px`, paddingRight: `${this.extralW}px` }}>
       <div className="top-box"><span style={{ paddingRight: "5px", color: "rgba(0,0,0,.6)", fontSize: "14px" }}>已选：</span><span>{`${stateVo.startTime || ""} - ${stateVo.endTime || ""}`}</span></div>
       <div className="middle-box nav-customer-scroll-box" onClick={this.onTimeSliderClick.bind(this)}>
         <span className="nav-customer-scroll"></span>
@@ -173,7 +171,7 @@ class SlideTimeRange extends React.Component {
             this.dataOptions.map((item, index) => {
               return (
                 <span className="time-item" style={{ left: `${sWidth * index}px` }} key={index}>
-                  {item.value}
+                  {item.text}
                 </span>
               )
             })
@@ -186,7 +184,7 @@ class SlideTimeRange extends React.Component {
 }
 
 SlideTimeRange.defaultProps = {
-  dataOptions:AMOPTIONS
+  timeOptions:AMOPTIONS
 };
 
 export default SlideTimeRange;

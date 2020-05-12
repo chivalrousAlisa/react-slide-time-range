@@ -60,9 +60,8 @@ export function getPrecentValByTime(timeOptions, targetTime) {
 }
 
 // 根据百分比值获取点位的clientX值
-export function getClientValByPrecent(precent) {
+export function getClientValByPrecent(precent, extralW) {
   // 计算起始点的百分比对应的 数值targetClientX， 20对应0%，345(maxW)对应100%，求对应百分之startPointer的 数值
-  const extralW = 20;
   const minW = Number(extralW);
   const maxW = window.innerWidth - minW;
   const pointerRate = (maxW - minW) / 100;
@@ -85,9 +84,8 @@ export function getDisplayTimeByPrecent(precent, timeOptions) {
 }
 
 // 根据clientX获取点位的百分比值
-export function getPrecentValByClient(targetClientX) {
+export function getPrecentValByClient(targetClientX, extralW) {
   // 计算起始点的百分比对应的 数值targetClientX， 20对应0%，345(maxW)对应100%，求对应百分之startPointer的 数值
-  const extralW = 20;
   const minW = Number(extralW);
   const maxW = window.innerWidth - minW;
   const precentPoRate = 100 / (maxW - minW);
