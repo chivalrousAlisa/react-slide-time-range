@@ -1,34 +1,19 @@
 {
-  "presets": [
-    [
-      "@babel/preset-env",
-      {
-        "modules": false,
-        "loose": true,
-        "targets": "last 2 versions, > 0.5%, not dead"
-      }
+    "presets": [
+        "env",
+        "react",
+        "stage-0"
     ],
-    "@babel/preset-react"
-  ],
-  "plugins": [
-    [
-      "@babel/plugin-proposal-class-properties",
-      {
-        "loose": true
-      }
-    ]
-  ],
-  "env": {
-    "test": {
-      "presets": [
+    "plugins": [
         [
-          "@babel/preset-env",
-          {
-            "loose": true,
-          }
+            "transform-runtime",
+            {
+                "helpers": false,
+                "polyfill": false,
+                "regenerator": true
+            }
         ],
-      ],
-      "plugins": ["@babel/transform-modules-commonjs"]
-    }
-  }
+        "react-hot-loader/babel",
+        "transform-decorators-legacy"
+    ]
 }

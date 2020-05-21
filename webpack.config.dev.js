@@ -1,47 +1,23 @@
-/* eslint-disable */
-const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
+const merge = require('webpack-merge');
+const baseWebpackConfig = require('./webpack.config.base');
 
-module.exports = {
-  mode: 'development',
-  entry: './playground/index.js',
-  output: {
-    path: __dirname + "/playground",
-    filename: 'SlideTimeRange.js',
-  },
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: 'babel-loader'
-      },
-      {
-        test: /\.s?css$/,
-        use: [
-          {
-            loader: 'style-loader'
-          },
-          {
-            loader: 'css-loader'
-          },
-          {
-            loader: 'sass-loader'
-          }
-        ]
-      }
-    ]
-  },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: 'playground/index.html',
-    }),
-    new webpack.HotModuleReplacementPlugin()
-  ],
-  devServer: {
-    port: process.env.PORT || 8888,
-    historyApiFallback: true,
-    open: true,
-    host: '0.0.0.0'
-  }
-};
+const port = 8888;
+
+
+module.exports = merge(baseWebpackConfig, {
+    mode: 'development',
+    devtool: "source-map",
+    devServer: {
+        contentBase: path.resolve(__dirname, 'dist'),//开发服务运行时的文件根目录
+        historyApiFallback: true,//spa不跳转,history模式的路由需要true
+        host: 'localhost',
+        port: port,
+        // hot:true,
+        inline: true,//实时刷新
+        compress: true,//Enable gzip compression for everything served
+        overlay: true, //Shows a full-screen overlay in the browser
+        stats: "errors-only",//To show only errors in your bundle
+        open: true, //When open is enabled, the dev server will open the browser.
+    },
+});
