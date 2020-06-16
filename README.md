@@ -1,10 +1,3 @@
-# React-SlideTimeRange
-
-> 
-
-## Demo
-
-[A demo is worth a thousand words]()
 
 ## Installation
 
