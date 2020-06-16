@@ -2,7 +2,6 @@
 import { render } from 'react-dom';
 import React from 'react';
 import SlideTimeRange from './slide-time-range.js';
-require("./index.scss");
 
 class App extends React.Component {
   constructor(props) {
@@ -22,11 +21,11 @@ class App extends React.Component {
           startTime="07:10"
           endTime="8:20"
         />
-        <div style={{ marginTop: "20px" }}>
+        <div style={{ marginTop: "20px", textAlign:"center" }}>
           <button onClick={() => {
             console.log(this.SlideTimeRange.getData());
           }}>获取</button>
-          <button onClick={() => {
+          <button style={{ marginLeft: "15px" }} onClick={() => {
             this.SlideTimeRange.setData({startTime:"8:00",endTime:"9:56"})
           }}>设置</button>
         </div>
