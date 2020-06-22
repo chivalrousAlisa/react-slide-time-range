@@ -9,7 +9,7 @@ module.exports = merge(baseWebpackConfig, {
     mode: 'development',
     devtool: "source-map",
     devServer: {
-        contentBase: path.resolve(__dirname, 'dist'),//开发服务运行时的文件根目录
+        contentBase: path.resolve(__dirname, 'lib'),//开发服务运行时的文件根目录
         historyApiFallback: true,//spa不跳转,history模式的路由需要true
         host: 'localhost',
         port: port,

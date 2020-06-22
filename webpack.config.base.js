@@ -1,5 +1,5 @@
 const path = require('path');
-const DIST_PATH = path.resolve(__dirname, 'dist');
+const DIST_PATH = path.resolve(__dirname, 'lib');
 const autoprefixer = require('autoprefixer');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
@@ -7,21 +7,13 @@ const copyWebpackPlugin = require('copy-webpack-plugin');
 
 
 module.exports = {
-    // entry: path.resolve(__dirname, 'src', 'index.js'),
-    // output: {
-    //     path: DIST_PATH,
-    //     publicPath: "",
-    //     chunkFilename: "[name].js",
-    //     filename: "[name].js"
-    // },
+    entry: path.resolve(__dirname, 'src', 'slide-time-range.js'),
+    output: {
+        path: DIST_PATH,
+        filename: "bundle.js"
+    },
     externals: {//引入三方包
         "testPlugin": "testPlugin"
-    },
-    optimization: {
-        splitChunks: {
-            chunks: 'all'
-        },
-        runtimeChunk: true
     },
     module: {
         rules: [
@@ -164,7 +156,7 @@ module.exports = {
     },
     plugins: [
         // new webpack.HotModuleReplacementPlugin()
-        new CleanWebpackPlugin(['dist']),
+        new CleanWebpackPlugin(['lib']),
         new copyWebpackPlugin([{//复制static到dist
             from: __dirname + '/src',//打包的静态资源目录地址
             to: './' //打包到dist下面的static
