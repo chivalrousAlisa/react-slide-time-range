@@ -7,7 +7,7 @@ const copyWebpackPlugin = require('copy-webpack-plugin');
 
 
 module.exports = {
-    entry: path.resolve(__dirname, 'src', 'react-slide-time-range.js'),
+    entry: path.resolve(__dirname, 'src', 'index.js'),
     output: {
         path: DIST_PATH,
         filename: "bundle.js"

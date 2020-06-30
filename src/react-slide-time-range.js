@@ -1,7 +1,7 @@
 import React from 'react';
 import { AMOPTIONS, getPrecentValByTime, getPrecentValByClient, getDisplayTimeByPrecent, getClientValByPrecent } from "./utils/index.js"
 require('./index.css');
-export class SlideTimeRange extends React.Component {
+class SlideTimeRange extends React.Component {
 
   // static propTypes = {
   //   endTime: PropTypes.string,
@@ -204,3 +204,5 @@ export class SlideTimeRange extends React.Component {
 SlideTimeRange.defaultProps = {
   timeOptions:AMOPTIONS
 };
+
+export default SlideTimeRange;
