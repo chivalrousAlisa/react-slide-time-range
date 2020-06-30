@@ -18,7 +18,7 @@ $ yarn add react-slide-time-range
 
 ```javascript
   import React, { Component } from 'react';
-  import { SlideTimeRange } from 'react-slide-time-range.js';
+  import { SlideTimeRange } from 'react-slide-time-range';
 
   class App extends Component {
     render(){

@@ -1,7 +1,7 @@
 
 import { render } from 'react-dom';
 import React from 'react';
-import { SlideTimeRange } from './slide-time-range.js';
+import { SlideTimeRange } from './react-slide-time-range.js';
 
 class App extends React.Component {
   constructor(props) {
