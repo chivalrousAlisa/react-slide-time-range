@@ -11,7 +11,7 @@
     "time-range",
     "drag"
   ],
-  "main": "lib/bundle.js",
+  "main": "./slide-time-range.js",
   "dependencies": {
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
