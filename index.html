@@ -9,10 +9,41 @@
 </head>
 
 <body>
-    <div id="root"></div>
+    <div id="root">
+      <div><button id="less">减少</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="more">增多</button></div>
+      <ul id="list"></ul>
+    </div>
     <!----github首页demo需要，不可改--->
 </body>
-<script src="dist/runtime~main.js"></script>
+<!-- <script src="dist/runtime~main.js"></script>
 <script src="dist/vendors~main.js"></script>
-<script src="dist/main.js"></script>
+<script src="dist/main.js"></script> -->
+<script>
+  let stateData = [];
+  const listDom = document.getElementById("list");
+  const data1 = [];
+  for(let i=0; i < 200;i++){
+    data1.push({id:i});
+  }
+  const data2 = data1.slice(0,30);
+  stateData = data1;
+  function renderli(){
+    let innerli = "";
+    stateData.forEach((item) => {
+      innerli += `<li style="border-bottom:1px solid #ddd;height:50px;line-height:50px">${item.id}</li>`;
+    });
+    listDom.innerHTML = innerli;
+  }
+  renderli();
+  const lessDom = document.getElementById("less");
+  const moreDom = document.getElementById("more");
+  lessDom.addEventListener("click",function(){
+    stateData = data2;
+    renderli();
+  });
+  moreDom.addEventListener("click",function(){
+    stateData = data1;
+    renderli();
+  });
+</script>
 </html>
